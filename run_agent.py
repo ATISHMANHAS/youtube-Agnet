@@ -1,18 +1,15 @@
-# run_agent.py
 import subprocess
 
-scripts = ["videoselector.py", "clipper.py", "uploader.py"]
+print("--- FOOFA AGENT FULL RUN STARTED ---\n")
 
-print("\n--- FOOFA AGENT FULL RUN STARTED ---\n")
+scripts = ["videoselector.py", "clipper.py", "uploader.py"]
 
 for script in scripts:
     print(f"Running: {script}")
     try:
-        result = subprocess.run(["python", script], check=True, capture_output=True, text=True)
+        result = subprocess.run(["python", script], capture_output=True, text=True)
         print(result.stdout)
         if result.stderr:
-            print("Warnings:\n", result.stderr)
-    except subprocess.CalledProcessError as e:
-        print(f"Error running {script}:\n{e.stderr}")
-
-print("\n--- ALL DONE ---")
+            print("Error running", script + ":\n", result.stderr)
+    except Exception as e:
+        print(f"Exception running {script}: {e}")
